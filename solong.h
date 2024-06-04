@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/03 17:56:36 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/04 13:47:21 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,16 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include "minilibx_mms/mlx.h"
 
 
 typedef struct	s_img
 {
-	void	*img;
-	int		*data;
-	int		size_l;
-	int		bpp;
-	int		endian;
+	void	*player_img;
+	void	*collect_img;
+	void	*exit_img;
+	void	*wall_img;
+	void	*background_img;
 }				t_img;
 
 typedef struct	s_game
@@ -53,17 +54,20 @@ typedef struct	s_map
 	int	is_c;
 	int	is_e;
 	int	is_invalid;
-	size_t	map_width;
-	size_t	map_height;
+	size_t	width;
+	size_t	height;
 }				t_map;
 
 char	**ft_split(char const *s, char c);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-int		read_map(void);
-size_t	ft_strlen(const char *s);
-int		check_map(t_map *map_data);
 char	*ft_strchr(const char *s, int c);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+size_t	ft_strlen(const char *s);
 
+int		check_map(t_map *map);
+int		read_map(t_map *map);
+int		read_img(t_img *img, t_game *game);
+
+int		test(void);
 
 
 

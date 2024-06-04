@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:37:04 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/03 17:32:30 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:37:57 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,18 +174,22 @@ X window systemを簡単に使うためのライブラリ
 
 int main(void)
 {
-	t_map 	map_data;
-	int		map;
+	t_map	map;
+	t_img	img;
+	t_game	game;
+	int		m;
 
+	// int width = 600;
+	// int height = 400;
 	// berファイルを読み込み２次元配列のマップを作成
-	map = read_map();
-	for(int i = 0; map_data.map != 0; i++)
-	{
-		for(int j = 0; map_data.map[i][j] != '\0'; j++)
-		{
-			printf("%c", map_data.map[i][j]);
-		}
-		printf("\n");
-	}
+	test();
+	m = read_map(&map);
+	read_img(&img, &game);
+	mlx_init();
+	// game.win = mlx_new_window(game.mlx, width, height, "yooshima");
+
+	// mlx_put_image_to_window(game.mlx, game.win, img.player_img, 0, 0);
+	mlx_loop(game.mlx);
+
 	return (0);
 }

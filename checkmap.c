@@ -6,59 +6,58 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/03 18:53:20 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:20:41 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-void	count_pce(t_map *map_data)
+void	count_pce(t_map *map)
 {
 	size_t	i;
 	size_t	j;
 
 	i = 1;
-	j = 1;
-	while(i < (map_data->map_height - 1))
+	while(i < (map->height))
 	{
-		j = 0;
-		while(j < (map_data->map_width - 1))
+		j = 1;
+		while(j < (map->width - 1))
 		{
-			if((map_data->map[i][j]) == 'P')
-				map_data->is_p++;
-			else if(map_data->map[i][j] == 'C')
-				map_data->is_c++;
-			else if(map_data->map[i][j] == 'E')
-				map_data->is_e++;
-			else if(!ft_strchr("PCE01", map_data->map[i][j]))
-				map_data->is_invalid++;
+			if((map->map[i][j]) == 'P')
+				map->is_p++;
+			else if(map->map[i][j] == 'C')
+				map->is_c++;
+			else if(map->map[i][j] == 'E')
+				map->is_e++;
+			else if(!ft_strchr("PCE01", map->map[i][j]))
+				map->is_invalid++;
 			j++;
 		}
 		i++;
 	}
 }
 
-bool	check_pce(t_map *map_data)
+bool	check_pce(t_map *map)
 {
 	bool	is_error;
 
 	is_error = 0;
-	if(map_data->is_p != 1)
+	if(map->is_p != 1)
 	{
-		printf("P error%d\n", map_data->is_p);
+		printf("P error%d\n", map->is_p);
 		is_error = 1;
 	}
-	if(map_data->is_c < 1)
+	if(map->is_c < 1)
 	{
-		printf("C error\n");
+		printf("C error%d\n", map->is_c);
 		is_error = 1;
 	}
-	else if(map_data->is_e != 1)
+	else if(map->is_e != 1)
 	{
 		printf("E error\n");
 		is_error = 1;
 	}
-	else if(map_data->is_invalid != 0)
+	else if(map->is_invalid != 0)
 	{
 		printf("invalid error\n");
 		is_error = 1;
@@ -67,22 +66,22 @@ bool	check_pce(t_map *map_data)
 }
 
 //mapが壁で囲われているか
-int	check_wall(t_map *map_data)
+int	check_wall(t_map *map)
 {
 	size_t i;
 	size_t	j;
 
 	i = 0;
 	j = 0;
-	while(j < map_data->map_width)
+	while(j < map->width)
 	{
-		if(map_data->map[0][j] != '1' || map_data->map[map_data->map_height - 1][j] != '1')
+		if(map->map[0][j] != '1' || map->map[map->height][j] != '1')
 			return (0);
 		j++;
 	}
-	while(map_data->map[i])
+	while(map->map[i])
 	{
-		if(map_data->map[i][0] != '1' || map_data->map[i][map_data->map_width - 1] != '1')
+		if(map->map[i][0] != '1' || map->map[i][map->width - 1] != '1')
 			return (0);
 		i++;
 	}
@@ -90,36 +89,37 @@ int	check_wall(t_map *map_data)
 }
 
 //mapが長方形であるか
-int	check_rectangle(t_map *map_data)
+int	check_rectangle(t_map *map)
 {
 	int	i;
 
 	i  = 0;
-	map_data->map_width = ft_strlen(map_data->map[i]);
-	while(map_data->map[i])
+	map->width = ft_strlen(map->map[i]);
+	while(map->map[i])
 	{
-		if(map_data->map_width != ft_strlen(map_data->map[i]))
-			return (0);
+		if(map->width != ft_strlen(map->map[i]))
+			break;
 		i++;
 	}
-	map_data->map_height = i;
-	if(map_data->map_height > map_data->map_width)
+	map->height = i;
+	if(map->height > map->width)
 		return(0);
 	return(1);
 }
 
-int	check_map(t_map *map_data)
+int	check_map(t_map *map)
 {
-	int	i;
-
-	i = 0;
-	if(!check_rectangle(map_data))
+	if(!check_rectangle(map))
 		printf("Map is not rectangle\n");
-	if(!check_wall(map_data))
+	if(!check_wall(map))
 		printf("Wall error\n");
-	count_pce(map_data);
-	if(!check_pce(map_data))
-		;
-
+	count_pce(map);
+	check_pce(map);
 	return (0);
+}
+
+int test(void)
+{
+	printf("hello\n");
+	return(0);
 }
