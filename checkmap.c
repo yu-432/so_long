@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/05 14:46:27 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:44:47 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,32 @@
 
 void	count_pce(t_game *game)
 {
-	size_t	i;
-	size_t	j;
+	size_t	x;
+	size_t	y;
 
-	i = 0;
-	while(i < (game->height))
+	y = 0;
+	while(y < (game->height))
 	{
-		j = 0;
-		while(j < (game->width - 1))
+		x = 0;
+		while(x < (game->width - 1))
 		{
-			if((game->map[i][j]) == 'P')
+			if((game->map[y][x]) == 'P')
+			{
+				printf("pos up x = %zu, y = %zu\n", x, y);
 				game->is_p++;
-			else if(game->map[i][j] == 'C')
+				game->p_pos_x = x;
+				game->p_pos_y = y;
+				printf("%zu, %zu\n", game->p_pos_x, game->p_pos_y);
+			}
+			else if(game->map[y][x] == 'C')
 				game->is_c++;
-			else if(game->map[i][j] == 'E')
+			else if(game->map[y][x] == 'E')
 				game->is_e++;
-			else if(!ft_strchr("PCE01", game->map[i][j]))
+			else if(!ft_strchr("PCE01", game->map[y][x]))
 				game->is_invalid++;
-			j++;
+			x++;
 		}
-		i++;
+		y++;
 	}
 }
 

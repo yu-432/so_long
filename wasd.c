@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:37:04 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/05 14:46:51 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:01:54 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,7 @@ int		img_height = 64;
 // 	return (0);
 // }
 
-// int	main_loop(t_game *game)
-// {
-// 	void	*player_img;
 
-// 	player_img = mlx_xpm_file_to_image(game->mlx, "./slime.xpm", &img_width, &img_height);
-// 	if(g_key_flag == 1)
-// 	{
-// 		mlx_put_image_to_window(game->mlx, game->win, player_img, g_player_x, g_player_y);
-// 		// mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
-// 		// my_rec_put(game, g_player_x, g_player_y, 0x00FFFFFF);
-// 	}
-// 	g_key_flag = 0;
-// 	return (0);
-// }
 
 // int	press_key(int key_code, t_game *game)
 // {
@@ -99,24 +86,24 @@ int		img_height = 64;
 
 // 	int		x;
 // 	int		y;
-// 	int		i;
+// 	int		y;
 
 // 	x = 0;
 // 	y = 0;
-// 	i = 0;
+// 	y = 0;
 // 	// xpm file to image
 // 	ishigaki_img = mlx_xpm_file_to_image(game->mlx, "./ishigaki.xpm", &img_width, &img_height);
 // 	shibafu_img = mlx_xpm_file_to_image(game->mlx, "./shibafu.xpm", &img_width, &img_height);
 
 // 	// put image window 
-// 	while(map[i])
+// 	while(map[y])
 // 	{
-// 		if(map[i] == '\n')
+// 		if(map[y] == '\n')
 // 		{
 // 			y += 64;
 // 			x = 0;
 // 		}
-// 		else if(map[i] == '1')
+// 		else if(map[y] == '1')
 // 		{
 // 			mlx_put_image_to_window(game->mlx, game->win, ishigaki_img, x, y);	
 // 			x += 64;
@@ -126,7 +113,7 @@ int		img_height = 64;
 // 			mlx_put_image_to_window(game->mlx, game->win, shibafu_img, x, y);	
 // 			x += 64;
 // 		}
-// 		i++;
+// 		y++;
 // 	}
 // 	return (0);
 // }
@@ -172,19 +159,139 @@ X window systemを簡単に使うためのライブラリ
 // 	mlx_loop(game->mlx);
 // }
 
+int	fore_check(int key_code, t_game *game)
+{
+	int move = 0;
+	if(key_code == W_KEY)
+	{
+		if((game->map[game->p_pos_y - 1][game->p_pos_x]) != '1')
+		{
+			game->map[game->p_pos_y][game->p_pos_x] = '0';
+			game->map[game->p_pos_y - 1][game->p_pos_x] = 'P';
+			move = 1;
+		}
+	}
+	else if(key_code == A_KEY)
+	{
+		if((game->map[game->p_pos_y][game->p_pos_x - 1]) != '1')
+		{
+			game->map[game->p_pos_y][game->p_pos_x] = '0';
+			game->map[game->p_pos_y][game->p_pos_x - 1] = 'P';
+			move = 1;
+
+		}
+	}
+	else if(key_code == S_KEY)
+	{
+		if((game->map[game->p_pos_y + 1][game->p_pos_x]) != '1')
+		{
+			game->map[game->p_pos_y][game->p_pos_x] = '0';
+			game->map[game->p_pos_y + 1][game->p_pos_x] = 'P';
+			move = 1;
+
+		}
+	}
+	else if(key_code == D_KEY)
+	{
+		if((game->map[game->p_pos_y][game->p_pos_x + 1]) != '1')
+		{
+			game->map[game->p_pos_y][game->p_pos_x] = '0';
+			game->map[game->p_pos_y][game->p_pos_x + 1] = 'P';
+			move = 1;
+
+		}
+	}
+	return(move);
+}
+
+int	key_hook(int key_code, t_game *game)
+{
+	printf("key press %d\n", key_code);
+	printf("%d\n", game->is_c);
+
+	if(key_code == ESC_KEY)
+		exit(0);
+	else if(key_code == W_KEY)
+	{
+		if(fore_check(key_code, game))
+			game->p_pos_y--;
+	}
+	else if(key_code == A_KEY)
+	{
+		if(fore_check(key_code, game))
+			game->p_pos_x--;
+	}
+	else if(key_code == S_KEY)
+	{
+		if(fore_check(key_code, game))
+		game->p_pos_y++;
+	}
+	else if(key_code == D_KEY)
+	{
+		if(fore_check(key_code, game))
+			game->p_pos_x++;
+	}
+	g_key_flag = 1;
+	return (key_code);
+}
+int	mouse_hook(int button, int x,int y)
+{
+	printf("mouse click %d location[%d,%d]\n", button, x, y);
+	return (0);
+}
+int	mapping(t_game *game)
+{
+	size_t	x;
+	size_t	y;
+
+	y = 0;
+	while(y < game->height)
+	{
+		x = 0;
+		while(x < game->width)
+		{
+			if(game->map[y][x] == 'P')
+				mlx_put_image_to_window(game->mlx, game->win, game->player_img, x * 64, y * 64);
+			else if(game->map[y][x] == 'C')
+				mlx_put_image_to_window(game->mlx, game->win, game->collect_img, x * 64, y * 64);
+			else if(game->map[y][x] == 'E')
+				mlx_put_image_to_window(game->mlx, game->win, game->exit_img, x * 64, y * 64);
+			else if(game->map[y][x] == '0')
+				mlx_put_image_to_window(game->mlx, game->win, game->background_img, x * 64, y * 64);
+			else if(game->map[y][x] == '1')
+				mlx_put_image_to_window(game->mlx, game->win, game->wall_img, x * 64, y * 64);
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+int	main_loop(t_game *game)
+{
+	mlx_key_hook(game->win, &key_hook, game);//&game -> game に変更することで値を参照できるようになった
+	if(g_key_flag == 1)
+	{
+		mlx_clear_window(game->mlx, game->win);
+		mapping(game);
+		g_key_flag = 0;
+	}
+	return (0);
+}
+
 
 int main(void)
 {
 	t_game	game;
 	int		m;
-	int width = 600;
-	int height = 400;
 
 	m = read_map(&game);
 	game.mlx = mlx_init();
+	printf("pressey = %p\n", game.mlx);
+
 	read_img(&game);
-	game.win = mlx_new_window(game.mlx, width, height, "yooshima");
-	mlx_put_image_to_window(game.mlx, game.win, game.player_img, 0, 0);
+	game.win = mlx_new_window(game.mlx, game.width * 64, game.height * 64, "so_long");
+	mlx_loop_hook(game.mlx, &main_loop, &game);
+
 	mlx_loop(game.mlx);
 
 	return (0);

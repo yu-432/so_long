@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/05 14:40:46 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:33:33 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct	s_game
 	void	*wall_img;
 	void	*background_img;
 	char	**map;
+	size_t	p_pos_x;
+	size_t	p_pos_y;
 	int		is_p;
 	int		is_c;
 	int		is_e;
@@ -51,14 +53,12 @@ char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 size_t	ft_strlen(const char *s);
-
 int		check_map(t_game *game);
 int		read_map(t_game *game);
 int		read_img(t_game *game);
-
+int		key_hook(int key_code, t_game *game);
 int		test(void);
-
-
+int	for_check(t_game *game, int key_code);
 
 
 #endif
