@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/06 17:33:33 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:47:01 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ typedef struct	s_game
 	int		is_c;
 	int		is_e;
 	int		is_invalid;
+	int		is_exit;
+	int		c_count;
+	size_t	move_count;
 	size_t	width;
 	size_t	height;
 }				t_game;
@@ -57,8 +60,11 @@ int		check_map(t_game *game);
 int		read_map(t_game *game);
 int		read_img(t_game *game);
 int		key_hook(int key_code, t_game *game);
-int		test(void);
-int	for_check(t_game *game, int key_code);
+int		**c2i_map(t_game *game);
+int	serch_route(t_game *game, int map[game->height][game->width]);
+char	*ft_itoa(int n);
+
+
 
 
 #endif
