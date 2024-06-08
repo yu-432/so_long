@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/07 18:47:01 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:20:04 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define A_KEY 0
 # define S_KEY 1
 # define D_KEY 2
+# define QUEUE_MAX 200
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -52,6 +53,14 @@ typedef struct	s_game
 	size_t	height;
 }				t_game;
 
+typedef struct s_queue
+{
+	int	array[QUEUE_MAX][3];
+	int	front;
+	int rear;
+}				t_queue;
+
+
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
@@ -60,9 +69,15 @@ int		check_map(t_game *game);
 int		read_map(t_game *game);
 int		read_img(t_game *game);
 int		key_hook(int key_code, t_game *game);
-int		**c2i_map(t_game *game);
-int	serch_route(t_game *game, int map[game->height][game->width]);
+int **c2i_map(t_game *game, int map[game->height][game->width]);
+// int	serch_route(t_game *game, int map[game->height][game->width]);
 char	*ft_itoa(int n);
+int	route(t_game *game);
+void	init_queue(t_queue *q);
+int	add_queue(t_queue *queue, int x, int y, int distance);
+void	del_queue(t_queue *queue, int *x, int *y, int *distance);
+
+
 
 
 

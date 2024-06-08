@@ -6,68 +6,69 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:23:51 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/07 19:11:09 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:28:55 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-int **c2i_map(t_game *game)
+int	**c2i_map(t_game *game, int map[game->height][game->width])
 {
-	size_t x;
-	size_t y;
-	y = 0;
-	int map[game->height][game->width];
+	size_t	x;
+	size_t	y;
 
-	while(y < game->height)
+	y = 0;
+	while (y < game->height)
 	{
 		x = 0;
-		while(x < game->width)
+		while (x < game->width)
 		{
-			if(game->map[y][x] == 'P')
+			if (game->map[y][x] == 'P')
 				map[y][x] = 0;
-			else if(game->map[y][x] == 'E')
-				map[y][x] = INT_MAX;
-			else if(game->map[y][x] == '1')
-				map[y][x] = -1;
+			else if (game->map[y][x] == 'C')
+				map[y][x] = 2;
+			else if (game->map[y][x] == '1')
+				map[y][x] = 1;
 			else
-				map[y][x] = -2;
+				map[y][x] = -1;
 			x++;
 		}
 		y++;
 	}
-	printf("shortest route = %d\n", serch_route(game, map));
-
-	return(0);
+	return (0);
 }
 
-int	serch_route(t_game *game, int map[game->height][game->width])
+int	serch_route_q(t_game *game, t_queue *queue, int v_map[game->height][game->width])
 {
-	size_t	x;
-	size_t	y;
-	int count;
+	int	x;
+	int	y;
+	int	distance;
 
-	count = 0;
-	while(1)
+	add_queue(queue, game->p_pos_x, game->p_pos_y, 0);
+	while (queue->front != queue->rear)
 	{
-		y = 0;
-		while(y < game->height)
-		{
-			x = 0;
-			while(x < game->width)
-			{
-				if((map[y][x] == -2 || map[y][x] == INT_MAX) && ((map[y -1][x] == count)
-				|| (map[y +1][x] == count) || (map[y][x -1] == count) || (map[y][x +1] == count)))
-				{
-					if(map[y][x] == INT_MAX)
-						return(count + 1);
-					map[y][x] = count + 1;
-				}
-				x++;
-			}
-			y++;
-		}
-		count++;
+		del_queue(queue, &x, &y, &distance);
+		if (game->map[y][x] == 'E')
+			return (distance);
+		if (v_map[y][x + 1] != 1)
+			v_map[y][x + 1] = add_queue(queue, x + 1, y, distance + 1);
+		if (v_map[y][x - 1] != 1)
+			v_map[y][x - 1] = add_queue(queue, x - 1, y, distance + 1);
+		if (v_map[y + 1][x] != 1)
+			v_map[y + 1][x] = add_queue(queue, x, y + 1, distance + 1);
+		if (v_map[y - 1][x] != 1)
+			v_map[y - 1][x] = add_queue(queue, x, y - 1, distance + 1);
 	}
+	return (0);
+}
+
+int	route(t_game *game)
+{
+	int		v_map[game->height][game->width];
+	t_queue	queue;
+
+	c2i_map(game, v_map);
+	init_queue(&queue);
+	printf("distance = %d\n", serch_route_q(game, &queue, v_map));
 	return (0);
 }

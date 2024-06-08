@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:20:11 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/03 14:41:32 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:30:56 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static int	count_words(const char *s, char c)
 		}
 		s++;
 	}
-	
 	return (count);
 }
 

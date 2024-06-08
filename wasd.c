@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:37:04 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/07 18:57:07 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/08 13:06:44 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,9 @@ int main(void)
 	int		m;
 
 	m = read_map(&game);
-	c2i_map(&game);
+	route(&game);
 	
 	game.mlx = mlx_init();
-	printf("pressey = %p\n", game.mlx);
 	read_img(&game);
 	game.win = mlx_new_window(game.mlx, game.width * TILE_SIZE, game.height * TILE_SIZE, "so_long");
 	mlx_loop_hook(game.mlx, &main_loop, &game);

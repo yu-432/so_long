@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/06 14:44:47 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:30:37 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ void	count_pce(t_game *game)
 		{
 			if((game->map[y][x]) == 'P')
 			{
-				printf("pos up x = %zu, y = %zu\n", x, y);
 				game->is_p++;
 				game->p_pos_x = x;
 				game->p_pos_y = y;
-				printf("%zu, %zu\n", game->p_pos_x, game->p_pos_y);
 			}
 			else if(game->map[y][x] == 'C')
 				game->is_c++;
