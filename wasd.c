@@ -6,128 +6,118 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:37:04 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/09 15:25:27 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:56:45 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 #include "mlx.h"
 
-int	can_move(t_game *game, int x, int y)
+int	can_move(t_game *g, int x, int y)
 {
-	if ((game->map[game->p_pos_y + y][game->p_pos_x + x]) != '1')
+	if ((g->map[g->p_pos_y + y][g->p_pos_x + x]) != '1')
 	{
-		if (game->map[game->p_pos_y + y][game->p_pos_x + x] == 'C')
-			game->c_count++;
-		if (game->map[game->p_pos_y + y][game->p_pos_x + x] == 'E')
-			game->is_exit = 1;
-		game->map[game->p_pos_y][game->p_pos_x] = '0';
-		game->map[game->p_pos_y + y][game->p_pos_x + x] = 'P';
-		game->p_pos_x += x;
-		game->p_pos_y += y;
-		printf("Move count = %zu\n", game->move_count);
+		printf("Move count = %zu\n", g->move_count + 1);
+		if (g->map[g->p_pos_y + y][g->p_pos_x + x] == 'C')
+			g->c_count++;
+		if (g->map[g->p_pos_y + y][g->p_pos_x + x] == 'E')
+			g->is_exit = 1;
+		g->map[g->p_pos_y][g->p_pos_x] = '0';
+		g->map[g->p_pos_y + y][g->p_pos_x + x] = 'P';
+		g->p_pos_x += x;
+		g->p_pos_y += y;
 		return (1);
 	}
 	return (0);
 }
 
-int	key_hook(int key_code, t_game *game)
+int	key_hook(int key_code, t_game *g)
 {
 	if (key_code == ESC_KEY)
 		exit(0);
 	else if (key_code == W_KEY)
-		game->move_count += can_move(game, 0, -1);
+		g->move_count += can_move(g, 0, -1);
 	else if (key_code == A_KEY)
-		game->move_count += can_move(game, -1, 0);
+		g->move_count += can_move(g, -1, 0);
 	else if (key_code == S_KEY)
-		game->move_count += can_move(game, 0, 1);
+		g->move_count += can_move(g, 0, 1);
 	else if (key_code == D_KEY)
-		game->move_count += can_move(game, 1, 0);
-	game->key_flag = 1;
+		g->move_count += can_move(g, 1, 0);
+	g->key_flag = 1;
 	return (1);
 }
-int	mapping(t_game *game)
+int	mapping(t_game *g)
 {
 	size_t	x;
 	size_t	y;
 
 	y = 0;
-	while(y < game->height)
+	while(y < g->height)
 	{
 		x = 0;
-		while(x < game->width)
+		while(x < g->width)
 		{
-			if(game->map[y][x] == 'P')
-				mlx_put_image_to_window(game->mlx, game->win, game->player_img, x * TILE_SIZE, y * TILE_SIZE);
-			else if(game->map[y][x] == 'C')
-				mlx_put_image_to_window(game->mlx, game->win, game->collect_img, x * TILE_SIZE, y * TILE_SIZE);
-			else if(game->map[y][x] == 'E')
-				mlx_put_image_to_window(game->mlx, game->win, game->exit_img, x * TILE_SIZE, y * TILE_SIZE);
-			else if(game->map[y][x] == '0')
-				mlx_put_image_to_window(game->mlx, game->win, game->background_img, x * TILE_SIZE, y * TILE_SIZE);
-			else if(game->map[y][x] == '1')
-				mlx_put_image_to_window(game->mlx, game->win, game->wall_img, x * TILE_SIZE, y * TILE_SIZE);
+			if(g->map[y][x] == 'P')
+				mlx_put_image_to_window(g->mlx, g->win, g->p_img, x * TILE_SIZE, y * TILE_SIZE);
+			else if(g->map[y][x] == 'C')
+				mlx_put_image_to_window(g->mlx, g->win, g->c_img, x * TILE_SIZE, y * TILE_SIZE);
+			else if(g->map[y][x] == 'E')
+				mlx_put_image_to_window(g->mlx, g->win, g->e_img, x * TILE_SIZE, y * TILE_SIZE);
+			else if(g->map[y][x] == '0')
+				mlx_put_image_to_window(g->mlx, g->win, g->b_img, x * TILE_SIZE, y * TILE_SIZE);
+			else if(g->map[y][x] == '1')
+				mlx_put_image_to_window(g->mlx, g->win, g->w_img, x * TILE_SIZE, y * TILE_SIZE);
 			x++;
 		}
 		y++;
 	}
 	return (0);
 }
-int	main_loop(t_game *game)
+int	main_loop(t_game *g)
 {
-	mlx_key_hook(game->win, &key_hook, game);
-	mlx_string_put(game->mlx, game->win, 32, 32, 0x00FFFFFF, ft_itoa(game->move_count));	
-	if(game->key_flag == 1)
+	mlx_key_hook(g->win, &key_hook, g);
+	if(g->key_flag == 1)
 	{
-		mlx_clear_window(game->mlx, game->win);
-		mapping(game);
-		game->key_flag = 0;
-		for(int i = 0; game->map[i] != 0; i++)
-		{
-			for(int j = 0; game->map[i][j] != 0; j++)
-			{
-				printf("%c", game->map[i][j]);
-			}
-			printf("\n");
-		}
+		mlx_clear_window(g->mlx, g->win);
+		mapping(g);
+		g->key_flag = 0;
 	}
-	if(game->is_exit)
+	if(g->is_exit)
 	{
-		mlx_string_put(game->mlx, game->win, (game->width / 2) * TILE_SIZE,
-			(game->height / 2) * TILE_SIZE, 0x00FFFFFF, "Goal!!");
-			return (1);
+		mlx_string_put(g->mlx, g->win, (g->width / 2) * TILE_SIZE,
+			(g->height / 2) * TILE_SIZE, 0x00FFFFFF, "Goal!!");
+		return (1);
 	}
+	mlx_string_put(g->mlx, g->win, 32, 32, 0x00FFFFFF, ft_itoa(g->move_count));
 	return (0);
 	
 }
 
-void	init_game(t_game *game)
+void	init_game(t_game *g)
 {
-	game->is_p = 0;
-	game->is_c = 0;
-	game->is_e = 0;
-	game->is_invalid = 0;
-	game->is_exit = 0;
-	game->c_count = 0;
-	game->move_count = 0;
-	game->key_flag = 1;
+	g->is_p = 0;
+	g->is_c = 0;
+	g->is_e = 0;
+	g->is_invalid = 0;
+	g->is_exit = 0;
+	g->c_count = 0;
+	g->move_count = 0;
+	g->key_flag = 1;
 
 }
 
-
 int main(void)
 {
-	t_game	game;
+	t_game	g;
 	int		m;
 
-	init_game(&game);
-	m = read_map(&game);
-	route(&game);
-	game.mlx = mlx_init();
-	read_img(&game);
-	game.win = mlx_new_window(game.mlx, game.width * TILE_SIZE, game.height * TILE_SIZE, "so_long");
-	mlx_loop_hook(game.mlx, &main_loop, &game);
-	mlx_loop(game.mlx);
-
+	init_game(&g);
+	m = read_map(&g);
+	route(&g);
+	g.mlx = mlx_init();
+	read_img(&g);
+	g.win = mlx_new_window(g.mlx, g.width * TILE_SIZE, g.height * TILE_SIZE, "so_long");
+	mlx_loop_hook(g.mlx, &main_loop, &g);
+	mlx_loop(g.mlx);
 	return (0);
 }

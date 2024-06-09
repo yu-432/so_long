@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:19:16 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/09 14:01:59 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:55:13 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,21 @@ void	init_queue(t_queue *q)
 {
 	q->front = 0;
 	q->rear = 0;
-	q->clcted_c = 0;
 }
 
-int	add_queue(t_queue *queue, int x, int y, int distance)
+int	add_queue(t_queue *q, int x, int y, int distance)
 {
-	queue->array[queue->rear][0] = x;
-	queue->array[queue->rear][1] = y;
-	queue->array[queue->rear][2] = distance;
-	queue->rear = (queue->rear + 1) % QUEUE_MAX;
+	q->array[q->rear][0] = x;
+	q->array[q->rear][1] = y;
+	q->array[q->rear][2] = distance;
+	q->rear = (q->rear + 1) % QUEUE_MAX;
 	return (1);
 }
 
-void	del_queue(t_queue *queue, int *x, int *y, int *distance)
+void	del_queue(t_queue *q, int *x, int *y, int *distance)
 {
-	*x = queue->array[queue->front][0];
-	*y = queue->array[queue->front][1];
-	*distance = queue->array[queue->front][2];
-	queue->front = (queue->front + 1) % QUEUE_MAX;
+	*x = q->array[q->front][0];
+	*y = q->array[q->front][1];
+	*distance = q->array[q->front][2];
+	q->front = (q->front + 1) % QUEUE_MAX;
 }

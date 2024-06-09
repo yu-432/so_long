@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:56:43 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/03 17:56:09 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:25:11 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	substr[i] = '\0';
 	return (substr);
 }
-
 
 char	*ft_strchr(const char *s, int c)
 {

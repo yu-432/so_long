@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/09 14:01:36 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:55:49 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define S_KEY 1
 # define D_KEY 2
 # define QUEUE_MAX 200
+# define WIDTH_MAX 40
+# define HEIGHT_MAX 20
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -34,11 +36,11 @@ typedef struct	s_game
 {
 	void	*mlx;
 	void	*win;
-	void	*player_img;
-	void	*collect_img;
-	void	*exit_img;
-	void	*wall_img;
-	void	*background_img;
+	void	*p_img;
+	void	*c_img;
+	void	*e_img;
+	void	*w_img;
+	void	*b_img;
 	char	**map;
 	int		is_p;
 	int		is_c;
@@ -56,10 +58,12 @@ typedef struct	s_game
 
 typedef struct s_queue
 {
-	int	array[QUEUE_MAX][3];
-	int	front;
-	int rear;
-	int clcted_c;
+	int		array[QUEUE_MAX][3];
+	int		cp_map[HEIGHT_MAX][WIDTH_MAX];
+	int		v_map[HEIGHT_MAX][WIDTH_MAX];
+	int		front;
+	int		rear;
+	int		clcted_c;
 }				t_queue;
 
 
@@ -71,13 +75,15 @@ int		check_map(t_game *game);
 int		read_map(t_game *game);
 int		read_img(t_game *game);
 int		key_hook(int key_code, t_game *game);
-int **c2i_map(t_game *game, int map[game->height][game->width]);
+
+
 // int	serch_route(t_game *game, int map[game->height][game->width]);
 char	*ft_itoa(int n);
 int	route(t_game *game);
 void	init_queue(t_queue *q);
 int	add_queue(t_queue *queue, int x, int y, int distance);
 void	del_queue(t_queue *queue, int *x, int *y, int *distance);
+int	**c2i_map(t_game *game, t_queue *queue);
 
 
 
