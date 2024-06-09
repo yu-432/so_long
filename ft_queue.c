@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:19:16 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/08 18:30:49 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:01:59 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_queue(t_queue *q)
 {
 	q->front = 0;
 	q->rear = 0;
+	q->clcted_c = 0;
 }
 
 int	add_queue(t_queue *queue, int x, int y, int distance)

@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/08 18:20:04 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:01:36 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,18 @@ typedef struct	s_game
 	void	*wall_img;
 	void	*background_img;
 	char	**map;
-	size_t	p_pos_x;
-	size_t	p_pos_y;
 	int		is_p;
 	int		is_c;
 	int		is_e;
 	int		is_invalid;
 	int		is_exit;
 	int		c_count;
+	size_t	p_pos_x;
+	size_t	p_pos_y;
 	size_t	move_count;
 	size_t	width;
 	size_t	height;
+	bool	key_flag;
 }				t_game;
 
 typedef struct s_queue
@@ -58,6 +59,7 @@ typedef struct s_queue
 	int	array[QUEUE_MAX][3];
 	int	front;
 	int rear;
+	int clcted_c;
 }				t_queue;
 
 

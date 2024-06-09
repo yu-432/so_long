@@ -6,13 +6,13 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:23:51 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/08 18:28:55 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:47:46 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-int	**c2i_map(t_game *game, int map[game->height][game->width])
+int	**c2i_map(t_game *game, int v_map[game->height][game->width])
 {
 	size_t	x;
 	size_t	y;
@@ -23,20 +23,26 @@ int	**c2i_map(t_game *game, int map[game->height][game->width])
 		x = 0;
 		while (x < game->width)
 		{
-			if (game->map[y][x] == 'P')
-				map[y][x] = 0;
+			if (game->map[y][x] == '1')
+				v_map[y][x] = 1;
 			else if (game->map[y][x] == 'C')
-				map[y][x] = 2;
-			else if (game->map[y][x] == '1')
-				map[y][x] = 1;
+				v_map[y][x] = 2;
 			else
-				map[y][x] = -1;
+				v_map[y][x] = -1;
 			x++;
 		}
 		y++;
 	}
 	return (0);
 }
+
+// int	new_map(t_queue *queue, t_game *game, int v_map[game->height][game->width])
+// {
+// 	c2i_map(game, v_map);
+// 	// printf("p pos = %zu, %zu\n", game->p_pos_x, game->p_pos_y);
+// 	add_queue(queue, game->p_pos_x, game->p_pos_y, 0);
+// 	return (1);
+// }
 
 int	serch_route_q(t_game *game, t_queue *queue, int v_map[game->height][game->width])
 {

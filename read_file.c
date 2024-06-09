@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:41:43 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/08 18:33:24 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/09 14:13:52 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,6 @@ int	read_map(t_game *game)
 	if(read_byte < 0)
 		return(0);
 	game->map = ft_split(buf, '\n');
-	for(int i = 0; game->map[i] != 0; i++)
-	{
-		for(int j = 0; game->map[i][j] != 0; j++)
-		{
-			printf("%c", game->map[i][j]);
-		}
-		printf("\n");
-	}
 	check_map(game);
 	return (1);
 }
