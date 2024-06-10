@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/09 17:54:17 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:44:32 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	check_pce(t_game *g)
 	is_error = 0;
 	if (g->is_p != 1)
 	{
-		printf("P error%d\n", g->is_p);
+		ft_putstr_fd("player error\n", 1);
 		is_error = 1;
 	}
 	if (g->is_c < 1)

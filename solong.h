@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/10 15:46:33 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:42:31 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	init_queue(t_queue *q);
 int		add_queue(t_queue *queue, int x, int y, int distance);
 void	del_queue(t_queue *queue, int *x, int *y, int *distance);
 int		**c2i_map(t_game *game, t_queue *queue);
+void	ft_putstr_fd(char *s, int fd);
 
 
 
