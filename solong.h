@@ -6,14 +6,14 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/09 17:55:49 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:46:33 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOLONG_H
 # define SOLONG_H
 
-# define TILE_SIZE 64
+# define T_SIZE 64
 # define ESC_KEY 53
 # define W_KEY 13
 # define A_KEY 0
@@ -21,7 +21,7 @@
 # define D_KEY 2
 # define QUEUE_MAX 200
 # define WIDTH_MAX 40
-# define HEIGHT_MAX 20
+# define HEIGHT_MAX 22
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -32,7 +32,17 @@
 # include <stdbool.h>
 # include "minilibx_mms/mlx.h"
 
-typedef struct	s_game
+typedef struct s_queue
+{
+	int		array[QUEUE_MAX][3];
+	int		cp_map[HEIGHT_MAX][WIDTH_MAX];
+	int		v_map[HEIGHT_MAX][WIDTH_MAX];
+	int		front;
+	int		rear;
+	int		clcted_c;
+}				t_queue;
+
+typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
@@ -56,15 +66,6 @@ typedef struct	s_game
 	bool	key_flag;
 }				t_game;
 
-typedef struct s_queue
-{
-	int		array[QUEUE_MAX][3];
-	int		cp_map[HEIGHT_MAX][WIDTH_MAX];
-	int		v_map[HEIGHT_MAX][WIDTH_MAX];
-	int		front;
-	int		rear;
-	int		clcted_c;
-}				t_queue;
 
 
 char	**ft_split(char const *s, char c);
@@ -75,15 +76,12 @@ int		check_map(t_game *game);
 int		read_map(t_game *game);
 int		read_img(t_game *game);
 int		key_hook(int key_code, t_game *game);
-
-
-// int	serch_route(t_game *game, int map[game->height][game->width]);
 char	*ft_itoa(int n);
-int	route(t_game *game);
+int		route(t_game *game);
 void	init_queue(t_queue *q);
-int	add_queue(t_queue *queue, int x, int y, int distance);
+int		add_queue(t_queue *queue, int x, int y, int distance);
 void	del_queue(t_queue *queue, int *x, int *y, int *distance);
-int	**c2i_map(t_game *game, t_queue *queue);
+int		**c2i_map(t_game *game, t_queue *queue);
 
 
 

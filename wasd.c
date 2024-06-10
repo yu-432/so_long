@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:37:04 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/09 17:56:45 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:11:01 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ int	can_move(t_game *g, int x, int y)
 	{
 		printf("Move count = %zu\n", g->move_count + 1);
 		if (g->map[g->p_pos_y + y][g->p_pos_x + x] == 'C')
+		{
 			g->c_count++;
-		if (g->map[g->p_pos_y + y][g->p_pos_x + x] == 'E')
-			g->is_exit = 1;
-		g->map[g->p_pos_y][g->p_pos_x] = '0';
-		g->map[g->p_pos_y + y][g->p_pos_x + x] = 'P';
+			g->map[g->p_pos_y + y][g->p_pos_x + x] = '0';
+		}
 		g->p_pos_x += x;
 		g->p_pos_y += y;
 		return (1);
@@ -57,16 +56,15 @@ int	mapping(t_game *g)
 		x = 0;
 		while(x < g->width)
 		{
-			if(g->map[y][x] == 'P')
-				mlx_put_image_to_window(g->mlx, g->win, g->p_img, x * TILE_SIZE, y * TILE_SIZE);
-			else if(g->map[y][x] == 'C')
-				mlx_put_image_to_window(g->mlx, g->win, g->c_img, x * TILE_SIZE, y * TILE_SIZE);
+			mlx_put_image_to_window(g->mlx, g->win, g->p_img, g->p_pos_x * T_SIZE, g->p_pos_y * T_SIZE);
+			if(g->map[y][x] == 'C')
+				mlx_put_image_to_window(g->mlx, g->win, g->c_img, x * T_SIZE, y * T_SIZE);
 			else if(g->map[y][x] == 'E')
-				mlx_put_image_to_window(g->mlx, g->win, g->e_img, x * TILE_SIZE, y * TILE_SIZE);
-			else if(g->map[y][x] == '0')
-				mlx_put_image_to_window(g->mlx, g->win, g->b_img, x * TILE_SIZE, y * TILE_SIZE);
+				mlx_put_image_to_window(g->mlx, g->win, g->e_img, x * T_SIZE, y * T_SIZE);
 			else if(g->map[y][x] == '1')
-				mlx_put_image_to_window(g->mlx, g->win, g->w_img, x * TILE_SIZE, y * TILE_SIZE);
+				mlx_put_image_to_window(g->mlx, g->win, g->w_img, x * T_SIZE, y * T_SIZE);
+			else
+				mlx_put_image_to_window(g->mlx, g->win, g->b_img, x * T_SIZE, y * T_SIZE);
 			x++;
 		}
 		y++;
@@ -82,15 +80,14 @@ int	main_loop(t_game *g)
 		mapping(g);
 		g->key_flag = 0;
 	}
-	if(g->is_exit)
+	if(g->map[g->p_pos_y][g->p_pos_x] == 'E' && g->is_c == g->c_count)
 	{
-		mlx_string_put(g->mlx, g->win, (g->width / 2) * TILE_SIZE,
-			(g->height / 2) * TILE_SIZE, 0x00FFFFFF, "Goal!!");
+		mlx_string_put(g->mlx, g->win, (g->width / 2) * T_SIZE,
+			(g->height / 2) * T_SIZE, 0x00FFFFFF, "Goal!!");
 		return (1);
 	}
 	mlx_string_put(g->mlx, g->win, 32, 32, 0x00FFFFFF, ft_itoa(g->move_count));
 	return (0);
-	
 }
 
 void	init_game(t_game *g)
@@ -116,7 +113,7 @@ int main(void)
 	route(&g);
 	g.mlx = mlx_init();
 	read_img(&g);
-	g.win = mlx_new_window(g.mlx, g.width * TILE_SIZE, g.height * TILE_SIZE, "so_long");
+	g.win = mlx_new_window(g.mlx, g.width * T_SIZE, g.height * T_SIZE, "so_long");
 	mlx_loop_hook(g.mlx, &main_loop, &g);
 	mlx_loop(g.mlx);
 	return (0);
