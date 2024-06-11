@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:19:16 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/09 17:55:13 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:03:07 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	add_queue(t_queue *q, int x, int y, int distance)
 	return (1);
 }
 
-void	del_queue(t_queue *q, int *x, int *y, int *distance)
+void	pic_queue(t_queue *q, int *x, int *y, int *distance)
 {
 	*x = q->array[q->front][0];
 	*y = q->array[q->front][1];

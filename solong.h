@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/10 17:42:31 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:03:14 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <errno.h>
 # include "minilibx_mms/mlx.h"
 
 typedef struct s_queue
@@ -58,8 +59,8 @@ typedef struct s_game
 	int		is_invalid;
 	int		is_exit;
 	int		c_count;
-	size_t	p_pos_x;
-	size_t	p_pos_y;
+	size_t	p_x;
+	size_t	p_y;
 	size_t	move_count;
 	size_t	width;
 	size_t	height;
@@ -72,17 +73,19 @@ char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 size_t	ft_strlen(const char *s);
-int		check_map(t_game *game);
-int		read_map(t_game *game);
+void	check_map(t_game *game);
+void	read_map(t_game *game);
 int		read_img(t_game *game);
 int		key_hook(int key_code, t_game *game);
 char	*ft_itoa(int n);
-int		route(t_game *game);
+int		route(t_game *game, t_queue *q);
 void	init_queue(t_queue *q);
 int		add_queue(t_queue *queue, int x, int y, int distance);
-void	del_queue(t_queue *queue, int *x, int *y, int *distance);
-int		**c2i_map(t_game *game, t_queue *queue);
+void	pic_queue(t_queue *queue, int *x, int *y, int *distance);
+void	**c2i_map(t_game *game, t_queue *queue);
 void	ft_putstr_fd(char *s, int fd);
+void	init_game(t_game *g);
+
 
 
 

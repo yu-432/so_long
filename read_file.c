@@ -6,13 +6,25 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:41:43 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/10 14:42:12 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/11 15:36:17 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-int	read_map(t_game *g)
+void	init_game(t_game *g)
+{
+	g->is_p = 0;
+	g->is_c = 0;
+	g->is_e = 0;
+	g->is_invalid = 0;
+	g->is_exit = 0;
+	g->c_count = 0;
+	g->move_count = 0;
+	g->key_flag = 1;
+}
+
+void	read_map(t_game *g)
 {
 	int		fd;
 	int		read_byte;
@@ -20,13 +32,18 @@ int	read_map(t_game *g)
 
 	fd = open("maps/map.ber", O_RDONLY);
 	if (fd < 0)
-		return (0);
+	{
+		perror(NULL);
+		exit(0);
+	}
 	read_byte = read(fd, buf, 1000);
 	if (read_byte < 0)
-		return (0);
+	{
+		perror(NULL);
+		exit(0);
+	}
 	g->map = ft_split(buf, '\n');
 	check_map(g);
-	return (1);
 }
 
 int	read_img(t_game *g)

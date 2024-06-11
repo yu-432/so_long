@@ -6,13 +6,13 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:23:51 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/10 14:55:04 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:07:03 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-int	**c2i_map(t_game *g, t_queue *q)
+void	**c2i_map(t_game *g, t_queue *q)
 {
 	size_t	x;
 	size_t	y;
@@ -68,7 +68,7 @@ void	get_coin(t_queue *q, int x, int y, int distance)
 	init_queue(q);
 	init_map(q);
 	add_queue(q, x, y, distance);
-	del_queue(q, &x, &y, &distance);
+	pic_queue(q, &x, &y, &distance);
 }
 
 int	serch_route_q(t_game *g, t_queue *q)
@@ -77,11 +77,11 @@ int	serch_route_q(t_game *g, t_queue *q)
 	int	y;
 	int	distance;
 
-	add_queue(q, g->p_pos_x, g->p_pos_y, 0);
+	add_queue(q, g->p_x, g->p_y, 0);
 	distance = 0;
 	while (1)
 	{
-		del_queue(q, &x, &y, &distance);
+		pic_queue(q, &x, &y, &distance);
 		if (q->cp_map[y][x] == 2)
 			get_coin(q, x, y, distance);
 		if (g->map[y][x] == 'E' && g->is_c == q->clcted_c)
@@ -94,18 +94,18 @@ int	serch_route_q(t_game *g, t_queue *q)
 			q->v_map[y + 1][x] = add_queue(q, x, y + 1, distance + 1);
 		if (q->v_map[y - 1][x] != 1)
 			q->v_map[y - 1][x] = add_queue(q, x, y - 1, distance + 1);
+		if (q->front == q->rear)
+			break ;
 	}
 	return (0);
 }
 
-int	route(t_game *g)
+int	route(t_game *g, t_queue *q)
 {
-	t_queue	q;
-
-	c2i_map(g, &q);
-	init_map(&q);
-	init_queue(&q);
-	q.clcted_c = 0;
-	printf("distance = %d\n", serch_route_q(g, &q));
+	c2i_map(g, q);
+	init_map(q);
+	init_queue(q);
+	q->clcted_c = 0;
+	printf("distance = %d\n", serch_route_q(g, q));
 	return (0);
 }

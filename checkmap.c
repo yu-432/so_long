@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/10 17:44:32 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:13:22 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	count_pce(t_game *g)
 			if ((g->map[y][x]) == 'P')
 			{
 				g->is_p++;
-				g->p_pos_x = x;
-				g->p_pos_y = y;
+				g->p_x = x;
+				g->p_y = y;
 			}
 			else if (g->map[y][x] == 'C')
 				g->is_c++;
@@ -48,28 +48,27 @@ bool	check_pce(t_game *g)
 	is_error = 0;
 	if (g->is_p != 1)
 	{
-		ft_putstr_fd("player error\n", 1);
+		ft_putstr_fd("Invalid MAP: Player error\n", 2);
 		is_error = 1;
 	}
 	if (g->is_c < 1)
 	{
-		printf("C error%d\n", g->is_c);
+		ft_putstr_fd("Invalid MAP: Collectable error\n", 2);
 		is_error = 1;
 	}
 	else if (g->is_e != 1)
 	{
-		printf("E error\n");
+		ft_putstr_fd("Invalid MAP: Exit error\n", 2);
 		is_error = 1;
 	}
 	else if (g->is_invalid != 0)
 	{
-		printf("invalid error\n");
+		ft_putstr_fd("Invalid MAP: Invalid Component\n", 2);
 		is_error = 1;
 	}
 	return (is_error);
 }
 
-//mapが壁で囲われているか
 int	check_wall(t_game *g)
 {
 	size_t	i;
@@ -92,7 +91,6 @@ int	check_wall(t_game *g)
 	return (1);
 }
 
-//mapが長方形であるか
 int	check_rectangle(t_game *g)
 {
 	int	i;
@@ -111,13 +109,13 @@ int	check_rectangle(t_game *g)
 	return (1);
 }
 
-int	check_map(t_game *g)
+void	check_map(t_game *g)
 {
 	if (!check_rectangle(g))
-		printf("Map is not rectangle\n");
+		ft_putstr_fd("Invalid MAP: Not rectangle\n", 2);
 	if (!check_wall(g))
-		printf("Wall error\n");
+		ft_putstr_fd("Invalid MAP: Not enclosed by walls\n", 2);
 	count_pce(g);
-	check_pce(g);
-	return (0);
+	if(check_pce(g))
+		exit(0);
 }
