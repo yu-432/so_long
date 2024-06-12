@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:37:04 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/11 16:00:40 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/12 11:54:01 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int	can_move(t_game *g, int x, int y)
 			mlx_put_image_to_window(g->mlx, g->win, \
 				g->e_img, g->p_x * T_SIZE, g->p_y * T_SIZE);
 		else
+		{
+			g->map[g->p_y][g->p_x] = '0';
 			mlx_put_image_to_window(g->mlx, g->win, \
 				g->b_img, g->p_x * T_SIZE, g->p_y * T_SIZE);
+		}
 		if (g->map[g->p_y + y][g->p_x + x] == 'C')
 			g->c_count++;
 		g->p_x += x;
@@ -59,6 +62,7 @@ int	mapping(t_game *g)
 		x = 0;
 		while (x < g->width)
 		{
+			mlx_put_image_to_window(g->mlx, g->win, g->p_img, g->p_x * T_SIZE, g->p_y * T_SIZE);
 			if (g->map[y][x] == 'C')
 				mlx_put_image_to_window(g->mlx, g->win, g->c_img, x * T_SIZE, y * T_SIZE);
 			else if (g->map[y][x] == 'E')
@@ -78,13 +82,15 @@ int	main_loop(t_game *g)
 {
 	mlx_key_hook(g->win, &key_hook, g);
 	mlx_put_image_to_window(g->mlx, g->win, g->w_img, 0, 0);
+	mapping(g);
 	mlx_string_put(g->mlx, g->win, 32, 32, 0x00FFFFFF, ft_itoa(g->move_count));
-	if (g->key_flag == 1)
-	{
-		mlx_put_image_to_window(g->mlx, g->win, \
-			g->p_img, g->p_x * T_SIZE, g->p_y * T_SIZE);
-		g->key_flag = 0;
-	}
+	// if (g->key_flag == 1)
+	// {
+	// 	mlx_put_image_to_window(g->mlx, g->win, \
+	// 		g->p_img, g->p_x * T_SIZE, g->p_y * T_SIZE);
+	// 	g->key_flag = 0;
+	// }
+	printf("%c, %d %d\n", g->map[g->p_y][g->p_x], g->is_c, g->c_count);
 	if (g->map[g->p_y][g->p_x] == 'E' && g->is_c == g->c_count)
 	{
 		g->is_exit = 1;
