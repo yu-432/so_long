@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/11 14:13:22 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:58:32 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	count_pce(t_game *g)
 	while (y < (g->height))
 	{
 		x = 0;
-		while (x < (g->width - 1))
+		while (x < (g->width))
 		{
 			if ((g->map[y][x]) == 'P')
 			{
@@ -48,28 +48,28 @@ bool	check_pce(t_game *g)
 	is_error = 0;
 	if (g->is_p != 1)
 	{
-		ft_putstr_fd("Invalid MAP: Player error\n", 2);
+		ft_fd_printf(2, "Error\nInvalid MAP: Player error\n");
 		is_error = 1;
 	}
 	if (g->is_c < 1)
 	{
-		ft_putstr_fd("Invalid MAP: Collectable error\n", 2);
+		ft_fd_printf(2, "Error\nInvalid MAP: Collectable error\n");
 		is_error = 1;
 	}
 	else if (g->is_e != 1)
 	{
-		ft_putstr_fd("Invalid MAP: Exit error\n", 2);
+		ft_fd_printf(2, "Error\nInvalid MAP: Exit error\n");
 		is_error = 1;
 	}
 	else if (g->is_invalid != 0)
 	{
-		ft_putstr_fd("Invalid MAP: Invalid Component\n", 2);
+		ft_fd_printf(2, "Error\nInvalid MAP: Invalid Component\n");
 		is_error = 1;
 	}
 	return (is_error);
 }
 
-int	check_wall(t_game *g)
+bool	check_wall(t_game *g)
 {
 	size_t	i;
 	size_t	j;
@@ -79,43 +79,56 @@ int	check_wall(t_game *g)
 	while (j < g->width)
 	{
 		if (g->map[0][j] != '1' || g->map[g->height - 1][j] != '1')
-			return (0);
+		{
+			ft_fd_printf(2, "Error\nInvalid MAP: Horizontal walls error\n");
+			return (1);
+		}
 		j++;
 	}
 	while (i < g->height)
 	{
 		if (g->map[i][0] != '1' || g->map[i][g->width - 1] != '1')
-			return (0);
+		{
+			ft_fd_printf(2, "Error\nInvalid MAP: Vertical walls error\n");
+			return (1);
+		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
-int	check_rectangle(t_game *g)
+bool	check_rectangle(t_game *g)
 {
-	int	i;
+	int		i;
+	bool	error;
 
-	i	= 0;
+	error = 0;
+	i = 0;
 	g->width = ft_strlen(g->map[i]);
 	while (g->map[i])
 	{
 		if (g->width != ft_strlen(g->map[i]))
-			break ;
+			error = 1;
 		i++;
 	}
 	g->height = i;
-	if (g->height > g->width)
-		return (0);
-	return (1);
+	if (g->height > g->width || error)
+	{
+		ft_fd_printf(2, "Error\nInvalid MAP: Not rectangle\n", 2);
+		error = 1;
+	}
+	return (error);
 }
 
 void	check_map(t_game *g)
 {
-	if (!check_rectangle(g))
-		ft_putstr_fd("Invalid MAP: Not rectangle\n", 2);
-	if (!check_wall(g))
-		ft_putstr_fd("Invalid MAP: Not enclosed by walls\n", 2);
+	bool	error;
+
+	error = 0;
+	error = check_rectangle(g);
 	count_pce(g);
-	if(check_pce(g))
-		exit(0);
+	error = check_pce(g);
+	error = check_wall(g);
+	if (error)
+		exit(1);
 }

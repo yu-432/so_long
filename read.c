@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:41:43 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/11 15:36:17 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:15:41 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	read_map(t_game *g)
 		perror(NULL);
 		exit(0);
 	}
+	buf[read_byte] = '\0';
 	g->map = ft_split(buf, '\n');
 	check_map(g);
 }

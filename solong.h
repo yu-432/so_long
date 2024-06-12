@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/11 16:03:14 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/12 18:29:48 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define QUEUE_MAX 200
 # define WIDTH_MAX 40
 # define HEIGHT_MAX 22
+# define WHITE 0x00FFFFFF
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -32,6 +33,7 @@
 # include <stdbool.h>
 # include <errno.h>
 # include "minilibx_mms/mlx.h"
+# include "ft_fd_printf/ft_fd_printf.h"
 
 typedef struct s_queue
 {
@@ -78,13 +80,16 @@ void	read_map(t_game *game);
 int		read_img(t_game *game);
 int		key_hook(int key_code, t_game *game);
 char	*ft_itoa(int n);
-int		route(t_game *game, t_queue *q);
+void	route(t_game *game, t_queue *q);
 void	init_queue(t_queue *q);
 int		add_queue(t_queue *queue, int x, int y, int distance);
 void	pic_queue(t_queue *queue, int *x, int *y, int *distance);
-void	**c2i_map(t_game *game, t_queue *queue);
-void	ft_putstr_fd(char *s, int fd);
+void	c2i_map(t_game *game, t_queue *queue);
+void	put_error(char *s, int fd);
 void	init_game(t_game *g);
+int		make_map(t_game *g);
+
+
 
 
 

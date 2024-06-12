@@ -6,13 +6,13 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:23:51 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/11 16:07:03 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/12 16:58:12 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-void	**c2i_map(t_game *g, t_queue *q)
+void	c2i_map(t_game *g, t_queue *q)
 {
 	size_t	x;
 	size_t	y;
@@ -37,7 +37,7 @@ void	**c2i_map(t_game *g, t_queue *q)
 		}
 		y++;
 	}
-	return (0);
+	return ;
 }
 
 void	init_map(t_queue *q)
@@ -100,12 +100,16 @@ int	serch_route_q(t_game *g, t_queue *q)
 	return (0);
 }
 
-int	route(t_game *g, t_queue *q)
+void	route(t_game *g, t_queue *q)
 {
 	c2i_map(g, q);
 	init_map(q);
 	init_queue(q);
 	q->clcted_c = 0;
-	printf("distance = %d\n", serch_route_q(g, q));
-	return (0);
+	if (!serch_route_q(g, q))
+	{
+		ft_fd_printf(2, "Error\nInvalid MAP: Route not found\n", 2);
+		exit(0);
+	}
+	return ;
 }
