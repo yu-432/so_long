@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:29:16 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/12 18:29:28 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/13 12:13:24 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ void	put_map(t_game *g, size_t x, size_t y)
 			g->b_img, x * T_SIZE, y * T_SIZE);
 }
 
-int	make_map(t_game *g)
+void	make_map(t_game *g)
 {
 	size_t	x;
 	size_t	y;
 
+	if (g->is_exit)
+		return ;
 	y = 0;
 	while (y < g->height)
 	{
@@ -46,5 +48,5 @@ int	make_map(t_game *g)
 		}
 		y++;
 	}
-	return (0);
+	return ;
 }

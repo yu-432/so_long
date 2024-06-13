@@ -6,22 +6,24 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/12 18:29:48 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:54:49 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOLONG_H
 # define SOLONG_H
 
-# define T_SIZE 64
 # define ESC_KEY 53
 # define W_KEY 13
 # define A_KEY 0
 # define S_KEY 1
 # define D_KEY 2
-# define QUEUE_MAX 200
 # define WIDTH_MAX 40
 # define HEIGHT_MAX 22
+# define T_SIZE 64
+# define WD_SIZE 10
+# define LINE_HEIGHT 20
+# define QUEUE_MAX 200
 # define WHITE 0x00FFFFFF
 
 # include <stdio.h>
@@ -64,37 +66,34 @@ typedef struct s_game
 	size_t	p_x;
 	size_t	p_y;
 	size_t	move_count;
+	size_t	bt_distance;
 	size_t	width;
 	size_t	height;
 	bool	key_flag;
 }				t_game;
 
-
-
+// libft
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
 size_t	ft_strlen(const char *s);
-void	check_map(t_game *game);
-void	read_map(t_game *game);
-int		read_img(t_game *game);
-int		key_hook(int key_code, t_game *game);
-char	*ft_itoa(int n);
-void	route(t_game *game, t_queue *q);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+// queue
 void	init_queue(t_queue *q);
-int		add_queue(t_queue *queue, int x, int y, int distance);
-void	pic_queue(t_queue *queue, int *x, int *y, int *distance);
-void	c2i_map(t_game *game, t_queue *queue);
+void	pic_queue(t_queue *q, int *x, int *y, int *distance);
+int		add_queue(t_queue *q, int x, int y, int distance);
+// map
+void	c2i_map(t_game *g, t_queue *q);
+void	make_map(t_game *g);
+void	route(t_game *g, t_queue *q);
+void	check_map(t_game *g);
+void	read_map(t_game *g, char *filename);
+// other
 void	put_error(char *s, int fd);
 void	init_game(t_game *g);
-int		make_map(t_game *g);
-
-
-
-
-
-
-
-
+int		read_img(t_game *g);
+int		key_hook(int key_code, t_game *g);
+int		end_game(t_game *g);
 
 #endif

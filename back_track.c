@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:23:51 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/12 16:58:12 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:22:05 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,18 @@ int	serch_route_q(t_game *g, t_queue *q)
 
 void	route(t_game *g, t_queue *q)
 {
+	int	bt_distance;
+
 	c2i_map(g, q);
 	init_map(q);
 	init_queue(q);
 	q->clcted_c = 0;
-	if (!serch_route_q(g, q))
+	bt_distance = serch_route_q(g, q);
+	if (!bt_distance)
 	{
 		ft_fd_printf(2, "Error\nInvalid MAP: Route not found\n", 2);
 		exit(0);
 	}
+	g->bt_distance = bt_distance;
 	return ;
 }

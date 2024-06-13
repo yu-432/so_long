@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_file.c                                        :+:      :+:    :+:   */
+/*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:41:43 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/12 13:15:41 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:36:10 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,32 @@ void	init_game(t_game *g)
 	g->key_flag = 1;
 }
 
-void	read_map(t_game *g)
+int	check_fname(char *filename)
+{
+	int	i;
+
+	i = 0;
+	while (filename[i])
+	{
+		if (filename[i] == '.')
+			break ;
+		i++;
+	}
+	return (ft_strncmp(&filename[i], ".ber", 5));
+}
+
+void	read_map(t_game *g, char *filename)
 {
 	int		fd;
 	int		read_byte;
 	char	buf[1001];
 
-	fd = open("maps/map.ber", O_RDONLY);
+	if (check_fname(filename))
+	{
+		ft_fd_printf(2, "Error\nInvalid Filename\n");
+		exit(1);
+	}
+	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
 		perror(NULL);

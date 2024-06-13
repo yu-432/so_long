@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.c                                            :+:      :+:    :+:   */
+/*   ft_libft.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:56:43 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/09 17:25:11 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:58:15 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*substr;
-	size_t	sub_len;
-	size_t	i;
-
-	if (!s)
-		return (NULL);
-	else if (ft_strlen(s) <= start || len == 0)
-		sub_len = 0;
-	else if (ft_strlen(s) > start + len)
-		sub_len = len;
-	else
-		sub_len = ft_strlen(s) - start;
-	substr = (char *)malloc((sub_len + 1) * sizeof(char));
-	if (substr == NULL)
-		return (NULL);
-	i = 0;
-	while (i < sub_len)
-	{
-		substr[i] = s[start + i];
-		i++;
-	}
-	substr[i] = '\0';
-	return (substr);
-}
-
 char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
@@ -81,4 +54,20 @@ char	*ft_strchr(const char *s, int c)
 	if (*s == c)
 		return ((char *)s);
 	return (NULL);
+}
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	i;
+
+	if (!s1 && !n)
+		return (0);
+	i = 0;
+	while ((s1[i] || s2[i]) && i < n)
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/03 13:12:34 by yooshima          #+#    #+#              #
-#    Updated: 2024/06/12 18:29:04 by yooshima         ###   ########.fr        #
+#    Updated: 2024/06/13 13:00:29 by yooshima         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,12 @@
 NAME		= test.a
 MLX_DDYLIB	= libmlx.dylib
 
-SRCS		=ft_split.c libft.c main.c read.c checkmap.c back_track.c itoa.c ft_queue.c mapping.c
+SRCS		= main.c read.c queue.c mapping.c checkmap.c back_track.c keyhook.c ft_split.c ft_libft.c ft_itoa.c
 
 OBJS		= ${SRCS:.c=.o}
 
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		=  -Wall -Wextra -Werror
 
 AR			= ar rcs
 RM			= rm -f
