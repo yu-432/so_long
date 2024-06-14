@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checkmap.c                                         :+:      :+:    :+:   */
+/*   checkmap_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/12 16:58:32 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:49:00 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "solong.h"
+#include "../../header/solong_bonus.h"
 
 void	count_pce(t_game *g)
 {
@@ -33,7 +33,7 @@ void	count_pce(t_game *g)
 				g->is_c++;
 			else if (g->map[y][x] == 'E')
 				g->is_e++;
-			else if (!ft_strchr("PCE01", g->map[y][x]))
+			else if (!ft_strchr("PCET01", g->map[y][x]))
 				g->is_invalid++;
 			x++;
 		}

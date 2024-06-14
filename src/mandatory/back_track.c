@@ -6,11 +6,11 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:23:51 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/13 13:22:05 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:52:27 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "solong.h"
+#include "../../header/solong.h"
 
 void	c2i_map(t_game *g, t_queue *q)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   itoa.c                                             :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 11:04:26 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/07 18:52:26 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:52:37 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "solong.h"
+#include "../../header/solong.h"
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

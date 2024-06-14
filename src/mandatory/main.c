@@ -6,11 +6,11 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:37:04 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/13 16:52:02 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/14 16:25:04 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "solong.h"
+#include "../../header/solong.h"
 
 int	close_window(t_game *g)
 {
@@ -20,13 +20,8 @@ int	close_window(t_game *g)
 
 int	main_loop(t_game *g)
 {
-	char	*move_count_ptr;
-
 	mlx_key_hook(g->win, &key_hook, g);
 	make_map(g);
-	move_count_ptr = ft_itoa(g->move_count);
-	mlx_string_put(g->mlx, g->win, 32, 32, WHITE, move_count_ptr);
-	free(move_count_ptr);
 	if (g->map[g->p_y][g->p_x] == 'E' && g->is_c == g->c_count)
 	{
 		g->is_exit = 1;
@@ -55,5 +50,5 @@ int	main(int argc, char **argv)
 
 __attribute__((destructor))
 static void destructor() {
-    system("leaks -q a.out");
+    system("leaks -q so_long");
 }
