@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:41:43 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/15 13:07:46 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 16:58:02 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,33 @@ void	read_map(t_game *g, char *filename)
 	check_map(g);
 }
 
+void	*my_mlx_xpm_file_to_image(t_game *g, char *filepath, int width, int height)
+{
+	int		fd;
+	void	*img;
+
+	fd = open(filepath, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_fd_printf(2, "Error\nNo exist file\n");
+		exit(1);
+	}
+	img = mlx_xpm_file_to_image(g->mlx, filepath, &width, &height);
+	if (!img)
+	{
+		ft_fd_printf(2, "Error\nFailed create image\n");
+		exit(1);
+	}
+	close(fd);
+	return (img);
+}
+
 int	read_img(t_game *g)
 {
-	int	width;
-	int	height;
-
-	width = T_SIZE + 10;
-	height = T_SIZE + 10;
-	g->p_img = mlx_xpm_file_to_image(g->mlx, "textures/p.xpm", &width, &height);
-	g->c_img = mlx_xpm_file_to_image(g->mlx, "textures/c.xpm", &width, &height);
-	g->e_img = mlx_xpm_file_to_image(g->mlx, "textures/e.xpm", &width, &height);
-	g->w_img = mlx_xpm_file_to_image(g->mlx, "textures/1.xpm", &width, &height);
-	g->b_img = mlx_xpm_file_to_image(g->mlx, "textures/0.xpm", &width, &height);
+	g->p_img = my_mlx_xpm_file_to_image(g->mlx, "textures/p.xpm", T_SIZE, T_SIZE);
+	g->c_img = my_mlx_xpm_file_to_image(g->mlx, "textures/c.xpm", T_SIZE, T_SIZE);
+	g->e_img = my_mlx_xpm_file_to_image(g->mlx, "textures/e.xpm", T_SIZE, T_SIZE);
+	g->w_img = my_mlx_xpm_file_to_image(g->mlx, "textures/1.xpm", T_SIZE, T_SIZE);
+	g->b_img = my_mlx_xpm_file_to_image(g->mlx, "textures/0.xpm", T_SIZE, T_SIZE);
 	return (0);
 }
