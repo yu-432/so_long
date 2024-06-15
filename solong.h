@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/15 14:07:41 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:25:28 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdbool.h>
 # include "minilibx_mms/mlx.h"
 # include "fd_printf/ft_fd_printf.h"
 
@@ -66,7 +65,7 @@ typedef struct s_game
 	size_t	bt_distance;
 	size_t	width;
 	size_t	height;
-	bool	key_flag;
+	int		key_flag;
 }				t_game;
 
 // libft

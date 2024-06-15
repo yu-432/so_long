@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/15 14:12:25 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:26:19 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	count_pce(t_game *g)
 	}
 }
 
-bool	check_pce(t_game *g)
+int	check_pce(t_game *g)
 {
-	bool	is_error;
+	int	is_error;
 
 	is_error = 0;
 	if (g->is_p != 1)
@@ -69,7 +69,7 @@ bool	check_pce(t_game *g)
 	return (is_error);
 }
 
-bool	check_wall(t_game *g)
+int	check_wall(t_game *g)
 {
 	size_t	i;
 	size_t	j;
@@ -97,10 +97,10 @@ bool	check_wall(t_game *g)
 	return (0);
 }
 
-bool	check_rectangle(t_game *g)
+int	check_rectangle(t_game *g)
 {
-	int		i;
-	bool	error;
+	int	i;
+	int	error;
 
 	error = 0;
 	i = 0;
