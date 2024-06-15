@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/15 13:34:41 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:12:25 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,13 @@ bool	check_rectangle(t_game *g)
 
 void	check_map(t_game *g)
 {
-	bool	error;
+	int	error;
 
 	error = 0;
-	error = check_rectangle(g);
+	error += check_rectangle(g);
 	count_pce(g);
-	error = check_pce(g);
-	error = check_wall(g);
-	if (error)
+	error += check_pce(g);
+	error += check_wall(g);
+	if (error != 0)
 		exit(1);
 }
