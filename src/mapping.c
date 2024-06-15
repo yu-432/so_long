@@ -6,11 +6,11 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 18:29:16 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/13 18:52:59 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 12:54:26 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/solong.h"
+#include "../solong.h"
 
 void	put_map(t_game *g, size_t x, size_t y)
 {

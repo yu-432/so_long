@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_bonus.c                                       :+:      :+:    :+:   */
+/*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:41:43 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/14 16:58:28 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 13:07:46 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/solong_bonus.h"
+#include "../solong.h"
 
 void	init_game(t_game *g)
 {
@@ -22,7 +22,6 @@ void	init_game(t_game *g)
 	g->c_count = 0;
 	g->move_count = 0;
 	g->key_flag = 1;
-	g->is_move = 0;
 }
 
 int	check_fname(char *filename)
@@ -72,13 +71,12 @@ int	read_img(t_game *g)
 	int	width;
 	int	height;
 
-	width = T_SIZE;
-	height = T_SIZE;
-	g->p_img = mlx_xpm_file_to_image(g->mlx, "textures/mandatory/p.xpm", &width, &height);
-	g->c_img = mlx_xpm_file_to_image(g->mlx, "textures/mandatory/c.xpm", &width, &height);
-	g->e_img = mlx_xpm_file_to_image(g->mlx, "textures/mandatory/e.xpm", &width, &height);
-	g->w_img = mlx_xpm_file_to_image(g->mlx, "textures/mandatory/1.xpm", &width, &height);
-	g->b_img = mlx_xpm_file_to_image(g->mlx, "textures/mandatory/0.xpm", &width, &height);
-	g->t_img = mlx_xpm_file_to_image(g->mlx, "textures/bonus/y.xpm", &width, &height);
+	width = T_SIZE + 10;
+	height = T_SIZE + 10;
+	g->p_img = mlx_xpm_file_to_image(g->mlx, "textures/p.xpm", &width, &height);
+	g->c_img = mlx_xpm_file_to_image(g->mlx, "textures/c.xpm", &width, &height);
+	g->e_img = mlx_xpm_file_to_image(g->mlx, "textures/e.xpm", &width, &height);
+	g->w_img = mlx_xpm_file_to_image(g->mlx, "textures/1.xpm", &width, &height);
+	g->b_img = mlx_xpm_file_to_image(g->mlx, "textures/0.xpm", &width, &height);
 	return (0);
 }

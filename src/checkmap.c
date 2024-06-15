@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checkmap_bonus.c                                   :+:      :+:    :+:   */
+/*   checkmap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/14 16:49:00 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 13:34:41 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/solong_bonus.h"
+#include "../solong.h"
 
 void	count_pce(t_game *g)
 {
@@ -33,7 +33,7 @@ void	count_pce(t_game *g)
 				g->is_c++;
 			else if (g->map[y][x] == 'E')
 				g->is_e++;
-			else if (!ft_strchr("PCET01", g->map[y][x]))
+			else if (!ft_strchr("PCE01", g->map[y][x]))
 				g->is_invalid++;
 			x++;
 		}
@@ -112,6 +112,11 @@ bool	check_rectangle(t_game *g)
 		i++;
 	}
 	g->height = i;
+	if (g->width > WIDTH_MAX || g->height > HEIGHT_MAX)
+	{
+		ft_fd_printf(2, "Error\nMap is too big\n");
+		exit(1);
+	}
 	if (g->height > g->width || error)
 	{
 		ft_fd_printf(2, "Error\nInvalid MAP: Not rectangle\n", 2);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_bonus.c                                   :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:20:11 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/14 15:15:58 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 12:37:42 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/solong_bonus.h"
+#include "../solong.h"
 
 static char	*ft_strndup(const char *s1, int len)
 {

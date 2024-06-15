@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/13 18:53:36 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 13:24:32 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,10 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include <limits.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <stdbool.h>
-# include <errno.h>
-# include "../minilibx_mms/mlx.h"
-# include "../ft_fd_printf/ft_fd_printf.h"
+# include "minilibx_mms/mlx.h"
+# include "ft_fd_printf/ft_fd_printf.h"
 
 typedef struct s_queue
 {
@@ -90,7 +87,6 @@ void	route(t_game *g, t_queue *q);
 void	check_map(t_game *g);
 void	read_map(t_game *g, char *filename);
 // other
-void	put_error(char *s, int fd);
 void	init_game(t_game *g);
 int		read_img(t_game *g);
 int		key_hook(int key_code, t_game *g);

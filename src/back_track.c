@@ -6,11 +6,11 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:23:51 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/13 18:52:27 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 13:20:08 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/solong.h"
+#include "../solong.h"
 
 void	c2i_map(t_game *g, t_queue *q)
 {
@@ -27,10 +27,6 @@ void	c2i_map(t_game *g, t_queue *q)
 				q->cp_map[y][x] = 1;
 			else if (g->map[y][x] == 'C')
 				q->cp_map[y][x] = 2;
-			else if (g->map[y][x] == 'P')
-				q->cp_map[y][x] = 0;
-			else if (g->map[y][x] == 'E')
-				q->cp_map[y][x] = INT_MAX;
 			else
 				q->cp_map[y][x] = -1;
 			x++;
@@ -40,7 +36,7 @@ void	c2i_map(t_game *g, t_queue *q)
 	return ;
 }
 
-void	init_map(t_queue *q)
+void	init_v_map(t_queue *q)
 {
 	int	i;
 	int	j;
@@ -66,7 +62,7 @@ void	get_coin(t_queue *q, int x, int y, int distance)
 	q->cp_map[y][x] = -1;
 	q->clcted_c++;
 	init_queue(q);
-	init_map(q);
+	init_v_map(q);
 	add_queue(q, x, y, distance);
 	pic_queue(q, &x, &y, &distance);
 }
@@ -105,7 +101,7 @@ void	route(t_game *g, t_queue *q)
 	int	bt_distance;
 
 	c2i_map(g, q);
-	init_map(q);
+	init_v_map(q);
 	init_queue(q);
 	q->clcted_c = 0;
 	bt_distance = serch_route_q(g, q);

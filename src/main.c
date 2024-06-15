@@ -6,11 +6,11 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:37:04 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/14 16:25:04 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 12:44:22 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/solong.h"
+#include "../solong.h"
 
 int	close_window(t_game *g)
 {
@@ -46,9 +46,4 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(g.mlx, &main_loop, &g);
 	mlx_loop(g.mlx);
 	return (0);
-}
-
-__attribute__((destructor))
-static void destructor() {
-    system("leaks -q so_long");
 }

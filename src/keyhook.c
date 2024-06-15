@@ -6,11 +6,11 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 12:59:45 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/13 18:52:50 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 12:44:00 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/solong.h"
+#include "../solong.h"
 
 int	can_move(t_game *g, int x, int y)
 {
