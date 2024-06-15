@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/15 13:24:32 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:07:41 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include "minilibx_mms/mlx.h"
-# include "ft_fd_printf/ft_fd_printf.h"
+# include "fd_printf/ft_fd_printf.h"
 
 typedef struct s_queue
 {
