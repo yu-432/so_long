@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:59:05 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/15 14:25:28 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/16 16:06:17 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 typedef struct s_queue
 {
 	int		array[QUEUE_MAX][3];
-	int		cp_map[HEIGHT_MAX][WIDTH_MAX];
+	int		i_map[HEIGHT_MAX][WIDTH_MAX];
 	int		v_map[HEIGHT_MAX][WIDTH_MAX];
 	int		front;
 	int		rear;
@@ -62,7 +62,7 @@ typedef struct s_game
 	size_t	p_x;
 	size_t	p_y;
 	size_t	move_count;
-	size_t	bt_distance;
+	size_t	distance;
 	size_t	width;
 	size_t	height;
 	int		key_flag;
@@ -90,5 +90,6 @@ void	init_game(t_game *g);
 int		read_img(t_game *g);
 int		key_hook(int key_code, t_game *g);
 int		end_game(t_game *g);
+void	put_error_exit(char *str);
 
 #endif

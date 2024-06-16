@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 15:23:51 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/15 13:20:08 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/16 16:06:37 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	c2i_map(t_game *g, t_queue *q)
 		while (x < g->width)
 		{
 			if (g->map[y][x] == '1')
-				q->cp_map[y][x] = 1;
+				q->i_map[y][x] = 1;
 			else if (g->map[y][x] == 'C')
-				q->cp_map[y][x] = 2;
+				q->i_map[y][x] = 2;
 			else
-				q->cp_map[y][x] = -1;
+				q->i_map[y][x] = -1;
 			x++;
 		}
 		y++;
@@ -47,7 +47,7 @@ void	init_v_map(t_queue *q)
 		j = 0;
 		while (j < WIDTH_MAX)
 		{
-			if (q->cp_map[i][j] == 1)
+			if (q->i_map[i][j] == 1)
 				q->v_map[i][j] = 1;
 			else
 				q->v_map[i][j] = 0;
@@ -59,7 +59,7 @@ void	init_v_map(t_queue *q)
 
 void	get_coin(t_queue *q, int x, int y, int distance)
 {
-	q->cp_map[y][x] = -1;
+	q->i_map[y][x] = -1;
 	q->clcted_c++;
 	init_queue(q);
 	init_v_map(q);
@@ -78,7 +78,7 @@ int	serch_route_q(t_game *g, t_queue *q)
 	while (1)
 	{
 		pic_queue(q, &x, &y, &distance);
-		if (q->cp_map[y][x] == 2)
+		if (q->i_map[y][x] == 2)
 			get_coin(q, x, y, distance);
 		if (g->map[y][x] == 'E' && g->is_c == q->clcted_c)
 			return (distance);
@@ -98,18 +98,15 @@ int	serch_route_q(t_game *g, t_queue *q)
 
 void	route(t_game *g, t_queue *q)
 {
-	int	bt_distance;
+	int	distance;
 
 	c2i_map(g, q);
 	init_v_map(q);
 	init_queue(q);
 	q->clcted_c = 0;
-	bt_distance = serch_route_q(g, q);
-	if (!bt_distance)
-	{
-		ft_fd_printf(2, "Error\nInvalid MAP: Route not found\n", 2);
-		exit(0);
-	}
-	g->bt_distance = bt_distance;
+	distance = serch_route_q(g, q);
+	if (!distance)
+		put_error_exit("Error\nInvalid MAP: Route not found\n");
+	g->distance = distance;
 	return ;
 }

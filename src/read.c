@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:41:43 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/15 16:58:02 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/16 15:53:55 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,54 +45,49 @@ void	read_map(t_game *g, char *filename)
 	char	buf[1001];
 
 	if (check_fname(filename))
-	{
-		ft_fd_printf(2, "Error\nInvalid Filename\n");
-		exit(1);
-	}
+		put_error_exit("Error\nInvalid Filename\n");
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-	{
-		perror(NULL);
-		exit(0);
-	}
+		put_error_exit("Error\nNo such file or directory\n");
 	read_byte = read(fd, buf, 1000);
 	if (read_byte < 0)
-	{
-		perror(NULL);
-		exit(0);
-	}
+		put_error_exit("Error\nCan't read file\n");
 	buf[read_byte] = '\0';
 	g->map = ft_split(buf, '\n');
+	if (!g->map)
+		put_error_exit("Error\nft_split failed\n");
 	check_map(g);
 }
 
-void	*my_mlx_xpm_file_to_image(t_game *g, char *filepath, int width, int height)
+void	*my_mlx_xpm_file_to_image(void *mlx, char *filename)
 {
 	int		fd;
+	int		size;
 	void	*img;
 
-	fd = open(filepath, O_RDONLY);
+	size = T_SIZE;
+	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_fd_printf(2, "Error\nNo exist file\n");
-		exit(1);
-	}
-	img = mlx_xpm_file_to_image(g->mlx, filepath, &width, &height);
-	if (!img)
-	{
-		ft_fd_printf(2, "Error\nFailed create image\n");
+		ft_fd_printf(2, "Error\nNo exist %s file\n", filename);
 		exit(1);
 	}
 	close(fd);
+	img = mlx_xpm_file_to_image(mlx, filename, &size, &size);
+	if (!img)
+	{
+		ft_fd_printf(2, "Error\nFailed create %s\n", filename);
+		exit(1);
+	}
 	return (img);
 }
 
 int	read_img(t_game *g)
 {
-	g->p_img = my_mlx_xpm_file_to_image(g->mlx, "textures/p.xpm", T_SIZE, T_SIZE);
-	g->c_img = my_mlx_xpm_file_to_image(g->mlx, "textures/c.xpm", T_SIZE, T_SIZE);
-	g->e_img = my_mlx_xpm_file_to_image(g->mlx, "textures/e.xpm", T_SIZE, T_SIZE);
-	g->w_img = my_mlx_xpm_file_to_image(g->mlx, "textures/1.xpm", T_SIZE, T_SIZE);
-	g->b_img = my_mlx_xpm_file_to_image(g->mlx, "textures/0.xpm", T_SIZE, T_SIZE);
+	g->p_img = my_mlx_xpm_file_to_image(g->mlx, "textures/p.xpm");
+	g->c_img = my_mlx_xpm_file_to_image(g->mlx, "textures/c.xpm");
+	g->e_img = my_mlx_xpm_file_to_image(g->mlx, "textures/e.xpm");
+	g->w_img = my_mlx_xpm_file_to_image(g->mlx, "textures/1.xpm");
+	g->b_img = my_mlx_xpm_file_to_image(g->mlx, "textures/0.xpm");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 12:59:45 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/15 12:44:00 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/16 16:14:35 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	can_move(t_game *g, int x, int y)
 {
 	if ((g->map[g->p_y + y][g->p_x + x]) != '1')
 	{
-		ft_fd_printf(2, "Move count = %d\n", (int)g->move_count + 1);
+		ft_fd_printf(1, "Move count = %d\n", (int)g->move_count + 1);
 		if (g->map[g->p_y][g->p_x] == 'E')
 			mlx_put_image_to_window(g->mlx, g->win, \
 				g->e_img, g->p_x * T_SIZE, g->p_y * T_SIZE);
@@ -77,7 +77,9 @@ int	end_game(t_game *g)
 {
 	char	*temp;
 
-	temp = ft_itoa(g->bt_distance * 999999 / g->move_count);
+	temp = ft_itoa(g->distance * 999999 / g->move_count);
+	if (!temp)
+		put_error_exit("Error\nft_itoa failed\n");
 	my_mlx_string_put(g, "GOAL!!", 0);
 	my_mlx_string_put(g, "YOUR SCORE", 1);
 	my_mlx_string_put(g, temp, 2);

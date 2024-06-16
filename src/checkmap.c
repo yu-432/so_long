@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/15 14:26:19 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/16 16:10:01 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,13 @@ int	check_pce(t_game *g)
 
 	is_error = 0;
 	if (g->is_p != 1)
-	{
-		ft_fd_printf(2, "Error\nInvalid MAP: Player error\n");
-		is_error = 1;
-	}
+		is_error = ft_fd_printf(2, "Error\nInvalid MAP: Player error\n");
 	if (g->is_c < 1)
-	{
-		ft_fd_printf(2, "Error\nInvalid MAP: Collectable error\n");
-		is_error = 1;
-	}
+		is_error = ft_fd_printf(2, "Error\nInvalid MAP: Collectable error\n");
 	else if (g->is_e != 1)
-	{
-		ft_fd_printf(2, "Error\nInvalid MAP: Exit error\n");
-		is_error = 1;
-	}
+		is_error = ft_fd_printf(2, "Error\nInvalid MAP: Exit error\n");
 	else if (g->is_invalid != 0)
-	{
-		ft_fd_printf(2, "Error\nInvalid MAP: Invalid Component\n");
-		is_error = 1;
-	}
+		is_error = ft_fd_printf(2, "Error\nInvalid MAP: Invalid Component\n");
 	return (is_error);
 }
 
@@ -102,9 +90,9 @@ int	check_rectangle(t_game *g)
 	int	i;
 	int	error;
 
-	error = 0;
-	i = 0;
 	g->width = ft_strlen(g->map[i]);
+	i = 0;
+	error = 0;
 	while (g->map[i])
 	{
 		if (g->width != ft_strlen(g->map[i]))
@@ -113,10 +101,7 @@ int	check_rectangle(t_game *g)
 	}
 	g->height = i;
 	if (g->width > WIDTH_MAX || g->height > HEIGHT_MAX)
-	{
-		ft_fd_printf(2, "Error\nMap is too big\n");
-		exit(1);
-	}
+		put_error_exit("Error\nMap is too big\n");
 	if (g->height > g->width || error)
 	{
 		ft_fd_printf(2, "Error\nInvalid MAP: Not rectangle\n", 2);
