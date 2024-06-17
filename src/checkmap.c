@@ -6,7 +6,7 @@
 /*   By: yooshima <yooshima@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:12:59 by yooshima          #+#    #+#             */
-/*   Updated: 2024/06/16 16:10:01 by yooshima         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:53:57 by yooshima         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int	check_rectangle(t_game *g)
 	int	i;
 	int	error;
 
-	g->width = ft_strlen(g->map[i]);
 	i = 0;
+	g->width = ft_strlen(g->map[i]);
 	error = 0;
 	while (g->map[i])
 	{
